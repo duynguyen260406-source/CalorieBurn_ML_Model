@@ -104,24 +104,28 @@ CalorieBurn_ML_Model/
 └── manage.py
 ```
 ### burn_calories 
-- models.py
+- `models.py`
   - UserProfile: lưu thông tin user (tuổi, cân nặng, chiều cao)
   - Activity: tên hoạt động + MET value
   - Session: một buổi tập, duration, burned_calories
-- views.py
+- `views.py`
   - home: hiển thị sessions, activities
   - add_session: form thêm session, tính calories, lưu vào DB
-- forms.py
+- `forms.py`
   - SessionForm: form giúp validate input
-- templates/burn_calories/
+- `templates/burn_calories/`
   - home.html, add_session.html
-- static/burn_calories/
+- `static/burn_calories/`
   - styles.css, images/
-- admin.py
+- `admin.py`
   - đăng ký model để quản lý trên trang /admin
+### `settings.py`
+Cấu hình cốt lõi: database, template path, static files, installed apps…
+### `urls.py` 
+Nối route của project với route của từng app.
 ### manage.py
 File CLI để tương tác với Django: runserver, makemigrations, migrate, createsuperuser, collectstatic, test, v.v.
-Ví dụ: `python manage.py runserver` chạy server dev.
+
 
 ## **II. Đóng góp của từng thành viên:**
 | Thành viên              | Mã số sinh viên | Công việc                                                                                                                                     | Tỷ lệ    |

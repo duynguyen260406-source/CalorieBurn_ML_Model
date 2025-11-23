@@ -134,7 +134,7 @@ File CLI để tương tác với Django: runserver, makemigrations, migrate, cr
 | **Trần Thị Nhật Khánh** | 11234568         | Làm web                                                                                                                                       | **16.7%** |
 | **Vũ Đức Anh**          | 11234569         | Tìm kiếm dữ liệu và thực hiện feature engineering trong machine learning.<br> Xây dựng features cho web: class picker, meal suggest.<br> Viết README | **16.7%** |
 | **Lê Phạm Khánh Linh**  | 11245892        | Làm web                                                                                                                                       | **16.7%** |
-| **Hoàng Thục Nhi**      | 11234570         | Làm web - Giao diện cho 2 features: Weekly plan Generator và Goal Translator                                                                                                                                      | **16.7%** |
+| **Hoàng Thục Nhi**      | 11234570         | Làm web - Thiết kế database; kết nối backend vào view, url, templates.<br>Tạo giao diện (html, css) cho trang homepage, landingpage, weekly planner, swap calo.                                                                                                                                     | **16.7%** |
 | **Vũ Trần Cát Linh**    | 11234570         | Phân tích và báo cáo dữ liệu (EDA) trong phần machine learning.<br> Xây dựng features cho web: what if coach, swap calorie                   | **16.7%** |
 
 

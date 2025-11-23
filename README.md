@@ -123,7 +123,7 @@ CalorieBurn_ML_Model/
 Cấu hình cốt lõi: database, template path, static files, installed apps…
 #### `urls.py`
 Nối route của project với route của từng app.
-#### `manage.py`**
+#### `manage.py`
 File CLI để tương tác với Django: runserver, makemigrations, migrate, createsuperuser, collectstatic, test, v.v.
 
 

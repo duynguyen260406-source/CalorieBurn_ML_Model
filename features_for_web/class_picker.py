@@ -280,7 +280,7 @@ def change_activity(plan_df: pd.DataFrame, day: str, data_path: str, weight_kg: 
     cpk = new_row["cpk_per_hour"]
 
     minutes_new = (old_kcal * 60) / (cpk * weight_kg)
-    minutes_new = max(30, min(150, round(minutes_new, 1)))  # Giới hạn 30–150 phút
+    minutes_new = max(30, min(150, round(minutes_new, 1)))  
 
     kcal_new = estimate_kcal_db(weight_kg, minutes_new, cpk)
 
@@ -294,11 +294,10 @@ def change_activity(plan_df: pd.DataFrame, day: str, data_path: str, weight_kg: 
     )
     return df
 
-
-
+#input
 if __name__ == "__main__":
     days = ["thứ 2", "thứ 4", "thứ 6"]  
-    groups = ["ngoài trời", "thể thao", "nghệ thuật"]
+    groups = ["ngoài trời"]
     weight_kg = 65.0
     weekly_target_kcal = 500.0
     data_path = "data/exercise_dataset (1).csv"
@@ -308,24 +307,3 @@ if __name__ == "__main__":
     print("\n===== KẾ HOẠCH TẬP LUYỆN TRONG TUẦN =====")
     print(plan.to_string(index=False))
 
-    choice = input("\nBạn có muốn đổi hoạt động giữa các ngày không? ").strip().lower()
-
-    while True:
-        print("\n----------------------------------------")
-        choice = input("Bạn muốn: (1) đổi hoạt động giữa 2 ngày, (2) đổi sang hoạt động khác (cùng nhóm), (3) thoát → Nhập 1/2/3: ").strip()
-        if choice == "1":
-            day1 = input("Nhập ngày thứ nhất muốn đổi (VD: 'thứ 2'): ").strip()
-            day2 = input("Nhập ngày thứ hai muốn đổi (VD: 'chủ nhật'): ").strip()
-            plan = swap_days(plan, day1, day2)
-            print("\n===== KẾ HOẠCH SAU KHI ĐỔI GIỮA 2 NGÀY =====")
-            print(plan.to_string(index=False))
-        elif choice == "2":
-            day = input("Nhập ngày muốn đổi hoạt động (VD: 'thứ 6'): ").strip()
-            plan = change_activity(plan, day, data_path, weight_kg)
-            print("\n===== KẾ HOẠCH SAU KHI TỰ ĐỔI HOẠT ĐỘNG =====")
-            print(plan.to_string(index=False))
-        elif choice == "3":
-            print("\nKhông đổi hoạt động. Kết thúc chương trình")
-            break
-        else:
-            print("Lựa chọn không hợp lệ, vui lòng nhập lại (1, 2 hoặc 3).")

@@ -81,7 +81,7 @@ Mục tiêu của project là nghiên cứu và xây dựng một hệ thống t
 - `weekly_planner.py`: Từ target kcal/tuần + profile người dùng, nó phân bổ mục tiêu calories theo từng ngày (pattern đều, hình kim tự tháp…) rồi tính gợi ý thời lượng và nhịp tim cho mỗi buổi tập trong tuần.
 - `what_if.py`: Cho phép người dùng “giả lập” thay đổi (ví dụ tăng thêm buổi, kéo dài thời gian, đổi hoạt động) và tính lại tổng calories đốt/tuần để xem nếu thay đổi thì mục tiêu có đạt được không.
 ### 3.4. Xây dựng web: 
-### a. Cấu trúc Django
+### Cấu trúc Django
 ```md
 kitty_fitness/
 │

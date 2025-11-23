@@ -1,15 +1,19 @@
 
 
 
-# Python-Project
+# Calorie Burn Prediction Using Machine Learning Linear Regression Models
 
-<p align="center">
-<img src="https://media.tenor.com/cZplm9ukCgkAAAAj/hello-kitty-gym-workout.gif" alt="Demo GIF" width="40%">
-</p>
+
+https://github.com/user-attachments/assets/97797f32-b3a6-4a39-ae48-871b7f1599c0
+
 
 ## **I. Giới thiệu project:**
 ### 1. Mục tiêu:
 Mục tiêu của project là nghiên cứu và xây dựng một hệ thống thông minh có khả năng dự đoán lượng calories đốt cháy dựa trên dữ liệu hoạt động của người dùng, đồng thời tạo ra một nền tảng hỗ trợ đưa ra quyết định trong việc quản lý sức khỏe và luyện tập. Project tập trung triển khai đầy đủ quy trình Machine Learning từ xây dựng thuật toán mô hình, phân tích dữ liệu, xử lý đặc trưng đến huấn luyện và đánh giá mô hình, sau đó chuyển đổi mô hình đã xây dựng thành một ứng dụng web thực tế giúp người dùng tương tác trực tiếp với kết quả dự đoán. Thông qua hệ thống này, người dùng có thể dễ dàng lập kế hoạch vận động, điều chỉnh thói quen và hiểu rõ hơn về mức tiêu thụ năng lượng của bản thân. Mục tiêu cuối cùng là tạo ra một công cụ khoa học, dễ sử dụng và có giá trị thực tế, hỗ trợ quá trình theo dõi và tối ưu hoá lượng calories đốt cháy hằng ngày.
+
+<p align="center">
+<img src="https://media.tenor.com/cZplm9ukCgkAAAAj/hello-kitty-gym-workout.gif" alt="Demo GIF" width="40%">
+</p>
 
 ### 2. Tính năng chính: 
 - **Mô hình dự đoán lượng calories đốt cháy**: Mô hình Machine Learning được xây dựng để dự đoán lượng calories đốt cháy dựa trên dữ liệu hoạt động và thông tin cá nhân của người dùng. Mô hình được huấn luyện trên dữ liệu đã xử lý nhằm tạo ra dự đoán chính xác và ổn định, đóng vai trò làm nền tảng cho các tính năng của web app như Weekly Planner, Goal Translator hay What-if Coach.

@@ -103,20 +103,41 @@ CalorieBurn_ML_Model/
 │ 
 └── manage.py
 ```
-### Phân tách giao diện và xử lý
-- **views.py** – render HTML (Goal Translator, Weekly Planner…)
-- **api.py** – xử lý logic tính toán, gọi ML model và trả JSON
-- **urls.py** – định tuyến
-- **static/** – chứa CSS, JS, hình ảnh
-- **templates/** – HTML + Django Template Engine
+## burn_calories (app)
+
+- models.py
+  - UserProfile: lưu thông tin user (tuổi, cân nặng, chiều cao)
+  - Activity: tên hoạt động + MET value
+  - Session: một buổi tập, duration, burned_calories
+
+- views.py
+  - home: hiển thị sessions, activities
+  - add_session: form thêm session, tính calories, lưu vào DB
+
+- forms.py
+  - SessionForm: form giúp validate input
+
+- templates/burn_calories/
+  - home.html, add_session.html
+
+- static/burn_calories/
+  - styles.css, images/
+
+- admin.py
+  - đăng ký model để quản lý trên trang /admin
+
+## manage.py
+File CLI để tương tác với Django: runserver, makemigrations, migrate, createsuperuser, collectstatic, test, v.v.
+Ví dụ: `python manage.py runserver` chạy server dev.
+
 ## **II. Đóng góp của từng thành viên:**
 | Thành viên              | Mã số sinh viên | Công việc                                                                                                                                     | Tỷ lệ    |
 |-------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|----------|
 | **Nguyễn Khánh Duy**    | 11245870         | Thực hiện train model trong phần machine learning.<br> Xây dựng features cho web: goal translator, weekly planner, meal suggest              | **16.7%** |
 | **Trần Thị Nhật Khánh** | 11234568         | Làm web                                                                                                                                       | **16.7%** |
 | **Vũ Đức Anh**          | 11234569         | Tìm kiếm dữ liệu và thực hiện feature engineering trong machine learning.<br> Xây dựng features cho web: class picker, meal suggest.<br> Viết README | **16.7%** |
-| **Lê Phạm Khánh Linh**  | 11234570         | Làm web                                                                                                                                       | **16.7%** |
-| **Hoàng Thục Nhi**      | 11234570         | Làm web                                                                                                                                       | **16.7%** |
+| **Lê Phạm Khánh Linh**  | 11245892        | Làm web                                                                                                                                       | **16.7%** |
+| **Hoàng Thục Nhi**      | 11234570         | Làm web - Giao diện cho 2 features: Weekly plan Generator và Goal Translator                                                                                                                                      | **16.7%** |
 | **Vũ Trần Cát Linh**    | 11234570         | Phân tích và báo cáo dữ liệu (EDA) trong phần machine learning.<br> Xây dựng features cho web: what if coach, swap calorie                   | **16.7%** |
 
 

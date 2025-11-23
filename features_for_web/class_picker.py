@@ -1,5 +1,4 @@
 
-from __future__ import annotations
 import math
 import random
 from dataclasses import dataclass
@@ -99,8 +98,6 @@ def build_pool_by_groups(df: pd.DataFrame, chosen_groups: List[str], min_per_gro
             print(f"[Cảnh báo] Nhóm '{g}' chỉ có {n} hoạt động khớp từ khoá trong data.")
     return pool.reset_index(drop=True)
 
-
-from dataclasses import dataclass
 
 @dataclass
 class DayPlan:
@@ -224,76 +221,6 @@ def make_weekly_plan(days: List[str], groups: List[str], weight_kg: float, weekl
     print(f"Tổng kcal ước tính = {total:.1f} (Target = {weekly_target_kcal:.1f}) | Sai lệch = {total - weekly_target_kcal:+.1f}")
     return out
 
-def swap_days(plan_df: pd.DataFrame, day1: str, day2: str) -> pd.DataFrame:
-    """Đổi cặp hoạt động giữa hai ngày (hoán đổi toàn bộ activity + minutes + kcal)."""
-    d1 = normalize_day_label(day1)
-    d2 = normalize_day_label(day2)
-    df = plan_df.copy()
-    i1 = df.index[df["Ngày"].str.lower()==d1].tolist()
-    i2 = df.index[df["Ngày"].str.lower()==d2].tolist()
-    if not i1 or not i2:
-        print("[Cảnh báo] Không tìm thấy một trong hai ngày để swap.")
-        return df
-    i1, i2 = i1[0], i2[0]
-    cols = ["Hoạt động","Thời gian (phút)","Kcal ước tính"]
-    tmp = df.loc[i1, cols].copy()
-    df.loc[i1, cols] = df.loc[i2, cols].values
-    df.loc[i2, cols] = tmp.values
-    return df
-
-def change_activity(plan_df: pd.DataFrame, day: str, data_path: str, weight_kg: float) -> pd.DataFrame:
-    """
-    Tự động đổi hoạt động của 1 ngày sang hoạt động khác cùng nhóm,
-    nhưng vẫn giữ nguyên lượng calo mong muốn bằng cách điều chỉnh thời gian.
-    """
-    d = normalize_day_label(day)
-    df = plan_df.copy()
-    idx = df.index[df["Ngày"].str.lower() == d].tolist()
-    if not idx:
-        print(f"[Lỗi] Không tìm thấy ngày {day} trong kế hoạch.")
-        return df
-
-    old_activity = df.loc[idx[0], "Hoạt động"]
-    old_kcal = df.loc[idx[0], "Kcal ước tính"]
-    if old_activity.lower() == "rest" or old_kcal == 0:
-        print("[Lỗi] Ngày này là 'Rest' — không thể đổi hoạt động.")
-        return df
-
-    act_db = load_activity_db(data_path)
-    act_db["groups"] = act_db["activity_lower"].apply(tag_group)
-
-    old_info = act_db[act_db["activity"].str.lower() == old_activity.lower()]
-    if old_info.empty:
-        print(f"[Cảnh báo] Không xác định được nhóm của hoạt động cũ: {old_activity}")
-        return df
-    old_groups = old_info.iloc[0]["groups"]
-
-    same_group = act_db[
-        act_db["groups"].apply(lambda g: any(gr in old_groups for gr in g))
-        & (act_db["activity"] != old_activity)
-    ]
-    if same_group.empty:
-        print(f"[Cảnh báo] Không tìm thấy hoạt động khác cùng nhóm với '{old_activity}'.")
-        return df
-
-    new_row = same_group.sample(1).iloc[0]
-    cpk = new_row["cpk_per_hour"]
-
-    minutes_new = (old_kcal * 60) / (cpk * weight_kg)
-    minutes_new = max(30, min(150, round(minutes_new, 1)))  
-
-    kcal_new = estimate_kcal_db(weight_kg, minutes_new, cpk)
-
-    df.loc[idx[0], "Hoạt động"] = new_row["activity"]
-    df.loc[idx[0], "Thời gian (phút)"] = minutes_new
-    df.loc[idx[0], "Kcal ước tính"] = round(kcal_new, 1)
-
-    print(
-        f"Đã tự động đổi hoạt động của {day}: '{old_activity}' → '{new_row['activity']}' "
-        f"(thời gian {minutes_new} phút ≈ {round(kcal_new,1)} kcal, giữ nguyên mức năng lượng mục tiêu)."
-    )
-    return df
-
 #input
 if __name__ == "__main__":
     days = ["thứ 2", "thứ 4", "thứ 6"]  
@@ -306,4 +233,3 @@ if __name__ == "__main__":
 
     print("\n===== KẾ HOẠCH TẬP LUYỆN TRONG TUẦN =====")
     print(plan.to_string(index=False))
-

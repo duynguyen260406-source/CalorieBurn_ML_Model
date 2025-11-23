@@ -103,7 +103,7 @@ CalorieBurn_ML_Model/
 │ 
 └── manage.py
 ```
-### burn_calories 
+** `burn_calories`**
 - `models.py`
   - UserProfile: lưu thông tin user (tuổi, cân nặng, chiều cao)
   - Activity: tên hoạt động + MET value
@@ -119,11 +119,11 @@ CalorieBurn_ML_Model/
   - styles.css, images/
 - `admin.py`
   - đăng ký model để quản lý trên trang /admin
-### `settings.py`
+** `settings.py`**
 Cấu hình cốt lõi: database, template path, static files, installed apps…
-### `urls.py` 
+** `urls.py`** 
 Nối route của project với route của từng app.
-### manage.py
+** `manage.py`**
 File CLI để tương tác với Django: runserver, makemigrations, migrate, createsuperuser, collectstatic, test, v.v.
 
 

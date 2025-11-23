@@ -81,7 +81,30 @@ Mục tiêu của project là nghiên cứu và xây dựng một hệ thống t
 - `weekly_planner.py`: Từ target kcal/tuần + profile người dùng, nó phân bổ mục tiêu calories theo từng ngày (pattern đều, hình kim tự tháp…) rồi tính gợi ý thời lượng và nhịp tim cho mỗi buổi tập trong tuần.
 - `what_if.py`: Cho phép người dùng “giả lập” thay đổi (ví dụ tăng thêm buổi, kéo dài thời gian, đổi hoạt động) và tính lại tổng calories đốt/tuần để xem nếu thay đổi thì mục tiêu có đạt được không.
 ### 3.4. Xây dựng web: 
-
+### a. Cấu trúc Django
+```md
+kitty_fitness/
+│
+├── kitty_fitness/ # cấu hình chính
+│ ├── settings.py
+│ ├── urls.py
+│
+├── tracker/ # app chính
+│ ├── models.py # (optional – project này dùng ML thay vì DB models)
+│ ├── views.py # xử lý request + trả về HTML
+│ ├── api.py # xử lý toàn bộ API gọi ML model
+│ ├── urls.py
+│ ├── templates/tracker/ # giao diện HTML
+│ └── static/tracker/ # CSS, JS, hình
+│
+└── manage.py
+```
+### Phân tách giao diện và xử lý
+- **views.py** – render HTML (Goal Translator, Weekly Planner…)
+- **api.py** – xử lý logic tính toán, gọi ML model và trả JSON
+- **urls.py** – định tuyến
+- **static/** – chứa CSS, JS, hình ảnh
+- **templates/** – HTML + Django Template Engine
 ## **II. Đóng góp của từng thành viên:**
 | Thành viên              | Mã số sinh viên | Công việc                                                                                                                                     | Tỷ lệ    |
 |-------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|----------|
@@ -116,32 +139,7 @@ Cài đặt toàn bộ data bằng cách chạy chương trình:
 download_data.py
 ```
 ### 4. Cách chạy chương trình: Phần này hướng dẫn cách chạy web Django của project
-### a. Cấu trúc Django
-```md
-kitty_fitness/
-│
-├── kitty_fitness/ # cấu hình chính
-│ ├── settings.py
-│ ├── urls.py
-│
-├── tracker/ # app chính
-│ ├── models.py # (optional – project này dùng ML thay vì DB models)
-│ ├── views.py # xử lý request + trả về HTML
-│ ├── api.py # xử lý toàn bộ API gọi ML model
-│ ├── urls.py
-│ ├── templates/tracker/ # giao diện HTML
-│ └── static/tracker/ # CSS, JS, hình
-│
-└── manage.py
-```
-### Phân tách giao diện và xử lý
-- **views.py** – render HTML (Goal Translator, Weekly Planner…)
-- **api.py** – xử lý logic tính toán, gọi ML model và trả JSON
-- **urls.py** – định tuyến
-- **static/** – chứa CSS, JS, hình ảnh
-- **templates/** – HTML + Django Template Engine
-
-### b. Các giao diện chính trong dự án
+### a. Các giao diện chính trong dự án
 Django backend cung cấp nhiều API endpoint phục vụ các tính năng ML.
 
 ### Tất cả API đều sử dụng `POST` và trả về `JSON`.
@@ -155,7 +153,7 @@ Django backend cung cấp nhiều API endpoint phục vụ các tính năng ML.
 | Swap Calories   | `/swap_calories_api/`   | Tính số phút cần tập để đốt calories từ một món ăn  |
 | Class Picker    | `/class_picker_api/`    | Gợi ý loại bài tập phù hợp (nếu bạn triển khai sau) |
 
-### c. Frontend — Backend Workflow
+### b. Frontend — Backend Workflow
 
 **Ví dụ: Goal Translator**
 
@@ -170,7 +168,7 @@ Django backend cung cấp nhiều API endpoint phục vụ các tính năng ML.
 6. Frontend nhận JSON → dựng bảng kế hoạch  
 
 > Meal Suggest, What-if Coach, Swap Calories dùng workflow tương tự.
-### d. Tích hợp mô hình ML vào Django
+### c. Tích hợp mô hình ML vào Django
 
 Tất cả ML model được load sẵn ở backend trong `api.py`.
 ```python
@@ -187,7 +185,7 @@ Dự đoán bằng ML model
 
 Trả về JSON để hiển thị
 
-### e. Giao diện (Frontend)
+### d. Giao diện (Frontend)
 
 **Thư mục:**
 ```bash
@@ -204,7 +202,7 @@ tracker/static/tracker/js/
 
 **JavaScript gồm:** fetch API, tạo bảng kế hoạch, popup, update UI  
 **CSS:** theme Hello Kitty, responsive, icon minh hoạ
-### f. Tính năng chọn ngày rảnh (Free-days)
+### e. Tính năng chọn ngày rảnh (Free-days)
 
 Payload từ frontend:
 ```json
@@ -212,7 +210,7 @@ Payload từ frontend:
   "free_days": ["Mon", "Wed", "Fri"]
 }
 ```
-### g. Ghi chú chân trang
+### f. Ghi chú chân trang
 
 Tất cả trang có footer chuẩn gồm:
 
@@ -224,7 +222,7 @@ Tất cả trang có footer chuẩn gồm:
 - Notes  
 
 Có thể tách thành template component tái sử dụng.
-### h. Session / User Profile (mở rộng)
+### g. Session / User Profile (mở rộng)
 
 Hiện dùng dữ liệu mẫu:
 ```makefile
@@ -238,7 +236,7 @@ Mở rộng trong tương lai:
 - User model  
 - Lưu profile & lịch tập  
 - Dashboard tiến độ  
-### i. Chạy dự án
+### h. Chạy dự án
 Frontend tự gọi API ML → hiển thị kết quả ngay.
 
 

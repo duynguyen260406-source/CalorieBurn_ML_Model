@@ -132,6 +132,13 @@ Cài đặt toàn bộ thư viện bằng:
 ```bash
 pip install -r requirements.txt
 ```
+> Có thể tạo virtualenv trước, nhưng không bắt buộc:
+>
+> ```bash
+> python -m venv venv
+> venv\Scripts\activate  
+> ```
+
 ### 3. Cài đặt các file dữ liệu cần thiết:
 Cài đặt toàn bộ data bằng cách chạy chương trình:
 
@@ -139,105 +146,27 @@ Cài đặt toàn bộ data bằng cách chạy chương trình:
 download_data.py
 ```
 ### 4. Cách chạy chương trình: Phần này hướng dẫn cách chạy web Django của project
-### a. Các giao diện chính trong dự án
-Django backend cung cấp nhiều API endpoint phục vụ các tính năng ML.
+1. Mở terminal trong thư mục **gốc của project** (thư mục có file `manage.py`).
+  
+2. (Nếu có dùng virtualenv) kích hoạt môi trường ảo:
 
-### Tất cả API đều sử dụng `POST` và trả về `JSON`.
+   ```bash
+   venv\Scripts\activate      # Windows
+   # hoặc
+   source venv/bin/activate   # macOS / Linux
+   ```
+3. Chạy migrate để khởi tạo database:
 
-| Tính năng       | Endpoint                | Ý nghĩa                                             |
-| --------------- | ----------------------- | --------------------------------------------------- |
-| Goal Translator | `/goal_translator_api/` | Tính toán kcal mục tiêu + lịch tập luyện            |
-| Weekly Planner  | `/weekly_planner_api/`  | Sinh lịch tập theo tuần dựa trên profile người dùng |
-| Meal Suggest    | `/meal_suggest_api/`    | Gợi ý món ăn từ dữ liệu similarity                  |
-| What-if Coach   | `/what_if_api/`         | So sánh calories khi thay đổi thời gian/nhịp tim    |
-| Swap Calories   | `/swap_calories_api/`   | Tính số phút cần tập để đốt calories từ một món ăn  |
-| Class Picker    | `/class_picker_api/`    | Gợi ý loại bài tập phù hợp (nếu bạn triển khai sau) |
+   ```bash
+   python manage.py migrate
+   ```
+4. Chạy server Django:
 
-### b. Frontend — Backend Workflow
+   ```bash
+   python manage.py runserver
+   ```
+5. Mở trình duyệt và truy cập:
 
-**Ví dụ: Goal Translator**
-
-1. Người dùng nhập mục tiêu tăng/giảm cân  
-2. Nhấn “Tạo kế hoạch” → JavaScript gửi payload bằng Fetch API  
-3. Backend nhận request → xử lý tại `goal_translator_api`  
-4. API thực hiện:
-   - tính kcal cần đốt mỗi ngày  
-   - gọi ML model để estimate calories  
-   - sinh lịch tập theo ngày  
-5. API trả JSON  
-6. Frontend nhận JSON → dựng bảng kế hoạch  
-
-> Meal Suggest, What-if Coach, Swap Calories dùng workflow tương tự.
-### c. Tích hợp mô hình ML vào Django
-
-Tất cả ML model được load sẵn ở backend trong `api.py`.
-```python
-import joblib
-calories_model = joblib.load("models/calories_predictor.pkl")
-```
-Quy trình chung của mỗi API ML:
-
-Nhận dữ liệu từ frontend
-
-Xử lý dữ liệu (chuẩn hoá, scale…)
-
-Dự đoán bằng ML model
-
-Trả về JSON để hiển thị
-
-### d. Giao diện (Frontend)
-
-**Thư mục:**
-```bash
-tracker/templates/tracker/*.html
-tracker/static/tracker/css/
-tracker/static/tracker/js/
-```
-**HTML gồm:**
-
-- form nhập thông tin  
-- bảng kết quả  
-- popup giới thiệu nhóm  
-- table động bằng JavaScript  
-
-**JavaScript gồm:** fetch API, tạo bảng kế hoạch, popup, update UI  
-**CSS:** theme Hello Kitty, responsive, icon minh hoạ
-### e. Tính năng chọn ngày rảnh (Free-days)
-
-Payload từ frontend:
-```json
-{
-  "free_days": ["Mon", "Wed", "Fri"]
-}
-```
-### f. Ghi chú chân trang
-
-Tất cả trang có footer chuẩn gồm:
-
-- Mục tiêu (kcal)  
-- Gợi ý thời lượng  
-- Gợi ý nhịp tim  
-- Kcal ước tính  
-- Khả thi  
-- Notes  
-
-Có thể tách thành template component tái sử dụng.
-### g. Session / User Profile (mở rộng)
-
-Hiện dùng dữ liệu mẫu:
-```makefile
-age: 25
-sex: male
-height: 170
-weight: 65
-```
-Mở rộng trong tương lai:
-
-- User model  
-- Lưu profile & lịch tập  
-- Dashboard tiến độ  
-### h. Chạy dự án
-Frontend tự gọi API ML → hiển thị kết quả ngay.
-
-
-
+   ```
+   http://127.0.0.1:8000/
+   ```

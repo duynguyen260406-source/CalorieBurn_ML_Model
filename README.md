@@ -83,20 +83,24 @@ Mục tiêu của project là nghiên cứu và xây dựng một hệ thống t
 ### 3.4. Xây dựng web: 
 ### Cấu trúc Django
 ```md
-kitty_fitness/
+CalorieBurn_ML_Model/
 │
-├── kitty_fitness/ # cấu hình chính
+├── burn_calories/ # Django project (cấu hình chính)
 │ ├── settings.py
 │ ├── urls.py
+│ ├── asgi.py
+│ └── wsgi.py
 │
-├── tracker/ # app chính
-│ ├── models.py # (optional – project này dùng ML thay vì DB models)
-│ ├── views.py # xử lý request + trả về HTML
-│ ├── api.py # xử lý toàn bộ API gọi ML model
-│ ├── urls.py
+├── tracker/             # app chính
+│ ├── migrations/        # file migration để Django tạo/cập nhật bảng DB
+│ ├── static/tracker/    # CSS, JS, hình
 │ ├── templates/tracker/ # giao diện HTML
-│ └── static/tracker/ # CSS, JS, hình
-│
+│ ├── admin.py           # đăng ký models để quản lý trong Django admin
+│ ├── apps.py            # cấu hình app tracker
+│ ├── models.py          # định nghĩa UserProfile lưu hồ sơ sức khỏe
+│ ├── urls.py            # định nghĩa route cho app tracker
+│ └── views.py           # xử lý request + trả về HTML
+│ 
 └── manage.py
 ```
 ### Phân tách giao diện và xử lý
